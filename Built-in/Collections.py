@@ -1,6 +1,6 @@
 """
 Collections:
-> List: ordered, changeable
+> List: ordered, changeable. Internally it is a variable-length array
 > Tuple: ordered, unchangeable
 > Dict: unordered, changeable and indexed
 > Set: unindexed dict

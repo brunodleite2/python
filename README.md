@@ -8,11 +8,22 @@ Considered as procedural as well as structural language
 
 > **Dinamically Typed**: no need to define variable type once it is declared. Types are difined upon assignment and it can change over time.
 
+> **Strongly Type**: you cannot performe inappropriate to the type of the of the object.
+
 > **Object Oriented Programming**: allows definition of classes with composition and inheritance.ps. Python does not support modifiers such as public, private and protected.
 
 > **Functions and Classes are first class objects**: they can be assigned to variables and passed into function arguments.
 
 > **Easy to read/write and multiple usage**: read as english instructions and used in web, AI, scripts, etc.
+
+## Datatypes:
+
+* **Number**: (int, float, complex) Immutable
+* **String**: Immutable
+* **Tuple**: Immutable, multi-type, ordered,  faster
+* **List**: Mutable, multi-type, ordered, slower than tuple
+* **Set**: Mutable, unique values, ordered, multi-type
+* **Dict**: Mutable, unordered, indexed by key
 
 ## Glossary
 
@@ -80,7 +91,7 @@ Shallow vs Deep only make sense for compound objects, where object contains othe
 
 ## Multithreading
 
-> **Global Interpreter Lock (GIL)**: Only allows 1 thread to run at one time.
+> **Global Interpreter Lock (GIL)**: Mutex that only allows 1 thread to run at one time.
 
 Use [Multiprocessing](https://docs.python.org/2/library/multiprocessing.html) insted. It spaws subprocess, allowing concurrency.
 
