@@ -1,11 +1,12 @@
-'FIRST SOLUTION - NO BULTIN FUCTIONS USED - FASTER'
+'FIRST SOLUTION - NO BULTIN FUNCTIONS USED - FASTER'
+
 
 class Solution:
-    MAX = 2**31 -1
+    MAX = 2**31 - 1
     MIN = 2**31 * -1
 
     def __is_sign(self, char: str) -> bool:
-        if char in ['-','+']:
+        if char in ['-', '+']:
             return True
         return False
 
@@ -33,7 +34,6 @@ class Solution:
 
         return integer
 
-
     def myAtoi(self, str: str) -> int:
         number_has_started = False
         response = ""
@@ -60,19 +60,21 @@ class Solution:
 
         return self.__convert_to_int(response)
 
-'SECOND SOLUTION - STR BULTIN FUCTIONS USED - SLOWER'
+
+'SECOND SOLUTION - STR BULTIN FUNCTIONS USED - SLOWER'
+
 
 class Solution:
-    MAX = 2**31 -1
+    MAX = 2**31 - 1
     MIN = 2**31 * -1
 
     def __is_sign(self, char: str) -> bool:
-        if char in ['-','+']:
+        if char in ['-', '+']:
             return True
         return False
 
     def __convert_to_int(self, str: str) -> int:
-        str_len =  len(str)
+        str_len = len(str)
         if not str_len or (str_len == 1 and not str[0].isnumeric()):
             return 0
 
@@ -85,7 +87,6 @@ class Solution:
             return Solution.MIN
 
         return integer
-
 
     def myAtoi(self, str: str) -> int:
         number_has_started = False
@@ -114,6 +115,7 @@ class Solution:
             return self.__convert_to_int(response)
 
         return self.__convert_to_int(response)
+
 
 solution = Solution()
 assert solution.myAtoi('42') == 42

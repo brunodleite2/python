@@ -1,5 +1,2 @@
-"""
-REGEX
-"""
+"STRINGS"
 
-import re

@@ -12,7 +12,7 @@ fargs(1, 2, 3, 4)
 fargs(1)
 
 """
-**kwargs : when you are not sure how many 
+**kwargs : when you are not sure how many
 keyworded args will be passed to a function
 """
 
