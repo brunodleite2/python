@@ -5,8 +5,9 @@ Collections:
 > Dict: unordered, changeable and indexed
 > Set: unindexed dict
 
-ps. All are iterable objects 
+ps. All are iterable objects
 ps2. string are also iterable object!
+ps3. Imutables are hashable var.__hash__()
 """
 
 """
@@ -20,17 +21,23 @@ print(next(l_it))
 """
 LIST
 """
-""" Declaration """
+
+"Declaration"
 list1 = [1, "2", 3.0]
 print(list1)
 # or
 list2 = list([1, "2", 3.0])
 print(list2)
 
-""" Reverse """
+"Reverse"
 list2.reverse()  # in place
 print(list2)
 # or
 
 list1 = list1[::-1]  # not in place
 print(list1)
+
+"""
+SET
+"""
+
