@@ -1,46 +1,15 @@
 class Solution:
-    """ def __init__(self):
-        expected_char = None
+    def isMatch2(self, text, pattern):
+        if not pattern:
+            return not text
 
-    def __get_expected_char(self, : string) -> str:
+        first_match = bool(text) and pattern[0] in {text[0], '.'}
 
-        return
-    """
-    """ def isMatch(self, s: str, p: str) -> bool:
-        p_index = 0
+        if len(pattern) >= 2 and pattern[1] == '*':
+            return (self.isMatch(text, pattern[2:]) or
+                    first_match and self.isMatch(text[1:], pattern))
 
-        # expected char
-        # anything
-
-        for actual in s:
-            if (p_index >= len(p)):
-                return False
-
-            exp = p[p_index]
-            print("E=%s A=%s" % (exp, actual))
-
-
-            #
-
-            if actual != exp and exp != ".":
-                return False
-
-
-            # Actual == Exp
-            if p_index + 1 == len(p): # Last one
-                p_index += 1
-                continue
-
-            p_next_index = p[p_index + 1]
-
-            if p_next_index == "*":
-                continue
-
-            p_index += 1
-
-        print("XXXX")
-        return True """
-
+        return first_match and self.isMatch(text[1:], pattern[1:])
 
     def isMatch(self, s: str, p: str) -> bool:
         s_len = len(s)
