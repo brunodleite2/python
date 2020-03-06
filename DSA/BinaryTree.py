@@ -1,7 +1,6 @@
 class TreeNode:
-    def __init__(self, val, parent):
+    def __init__(self, val):
         self.val = val
-        self.parent = parent
         self.left = None
         self.right = None
 
@@ -68,73 +67,60 @@ class BinaryTree:
         if not root:
             return
 
-    def __remove(self, node):
-        if not node.parent:  # root
+    def __remove(self, node, parent_node):
+        if not parent_node:  # root
             self.root = None
             return
 
         is_right_child = False
-        if node.val > node.parent.val:
+        if node.val > parent_node.val:
             is_right_child = True
+
+        replacement_node = None
 
         # leaf node
         if not node.left and not node.right:
-            if is_right_child:
-                node.parent.right = None
-                return
-            node.parent.left = None
-            return
+            pass
 
         # only left child
-        """ if node.left and not node.right:
-            new_node = node.left
+        if node.left and not node.right:
+            replacement_node = node.left
 
+        # only left child
         if not node.left and node.right:
-            new_node = node.right
+            replacement_node = node.right
+
+        if node.left and node.right:
+            replacement_node = node.right
+            node.right.left = node.left
 
         if is_right_child:
-            node.parent.right = new_node
-        else:
-            node.parent.left = new_node
-        new_node.parent = node.parent
-
-        # only right child
-        if not node.left and node.right:
-            if is_right_child:
-                node.parent.right = node.right
-            else:
-                node.parent.left = node.right
-
-            node.right.parent = node.parent
+            parent_node.right = replacement_node
             return
-
-        # both children .. right is promoted as parent
-        node.right.parent = node.parent
-
-
-        if is_right_child:
-            node.parent.right = node.right
- """
+        parent_node.left = replacement_node
 
 
     def remove(self, val):
         node = self.root
+        parent_node = None
 
         while node:
             if val > node.val:
+                parent_node = node
                 node = node.right
                 continue
 
             if val < node.val:
+                parent_node = node
                 node = node.left
                 continue
 
             # val == node.val:
-            self.__remove(node)
+            self.__remove(node, parent_node)
             break
 
     def add(self, val):
-        new_node = TreeNode(val, None)
+        new_node = TreeNode(val)
 
         if not self.root:
             self.root = new_node
@@ -149,14 +135,12 @@ class BinaryTree:
             if val > node.val:
                 if node.right is None:
                     node.right = new_node
-                    new_node.parent = node
                     break
                 node = node.right
                 continue
             # val < node.val
             if node.left is None:
                 node.left = new_node
-                new_node.parent = node
                 break
             node = node.left
 
@@ -175,8 +159,7 @@ bt.pre_order_traversal(bt.root)
 print("")
 print("Post Order:")
 bt.post_order_traversal(bt.root)
-
 bt.remove(2)
-print("Post Order:")
+print("")
 bt.in_order_traversal(bt.root)
 # bt.invert()
