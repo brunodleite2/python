@@ -6,18 +6,34 @@ class TreeNode:
         self.right = None
 
 class Solution:
-    def __remove(self, node, parent_node):
+    def __init__(self):
+        self.root = None
 
+    def get_max(self, node: TreeNode) -> TreeNode:
+        if not node:
+            return node
+
+        if node.right:
+            return self.get_max(node.right)
+        return node
+
+
+    def __remove(self, node, parent_node):
+        if node.left and node.right:
+            max_left_branch = self.get_max(node.left)
+            self.remove(max_left_branch.val)
+            node.val = max_left_branch.val
+            return
+
+        is_root = False
+        if not parent_node:  # root
+            is_root = True
 
         is_right_child = False
-        if node.val > parent_node.val:
+        if not is_root and node.val > parent_node.val:
             is_right_child = True
 
         replacement_node = None
-
-        # leaf node
-        if not node.left and not node.right:
-            pass
 
         # only left child
         if node.left and not node.right:
@@ -27,18 +43,18 @@ class Solution:
         if not node.left and node.right:
             replacement_node = node.right
 
-        if node.left and node.right:
-            replacement_node = node.right
-            node.right.left = node.left
+        if is_root:
+            self.root = replacement_node
+            return
 
         if is_right_child:
             parent_node.right = replacement_node
             return
         parent_node.left = replacement_node
 
-    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
-        node = root
-        val = key
+
+    def remove(self, val):
+        node = self.root
         parent_node = None
 
         while node:
@@ -52,13 +68,12 @@ class Solution:
                 node = node.left
                 continue
 
-            if not parent_node:  # root
-                root = None
-                break
-
             # val == node.val:
             self.__remove(node, parent_node)
             break
 
+    def deleteNode(self, root: TreeNode, key: int) -> TreeNode:
+        self.root = root
+        self.remove(key)
 
-
+        return self.root

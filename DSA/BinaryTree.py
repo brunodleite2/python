@@ -26,16 +26,6 @@ class BinaryTree:
     def __init__(self):
         self.root = None
 
-    """
-    add(value) { /* ... */ }
-    find(value) { /* ... */ }
-    remove(value) { /* ... */ }
-    getMax() { /* ... */ }
-    getMin() { /* ... */ }
-    dfs()
-    bfs()
-    """
-
     #  left, parent, right.
     def in_order_traversal(self, root):
         if not root:
@@ -60,27 +50,39 @@ class BinaryTree:
             return
 
         print(root.val, end="->")
-        self.in_order_traversal(root.left)
-        self.in_order_traversal(root.right)
+        self.pre_order_traversal(root.left)
+        self.pre_order_traversal(root.right)
 
     def bfs(self, root):
         if not root:
             return
 
+    def get_max(self, node: TreeNode) -> TreeNode:
+        if not node:
+            return node
+
+        if node.right:
+            return self.get_max(node.right)
+        return node
+
     def __remove(self, node, parent_node):
-        if not parent_node:  # root
-            self.root = None
+        if node.left and node.right:
+            # remove max from left child
+            max_left_branch = self.get_max(node.left)
+            self.remove(max_left_branch.val)
+            node.val = max_left_branch.val
             return
 
+        is_root = False
+        if not parent_node:  # root
+            is_root = True
+
+
         is_right_child = False
-        if node.val > parent_node.val:
+        if not is_root and node.val > parent_node.val:
             is_right_child = True
 
         replacement_node = None
-
-        # leaf node
-        if not node.left and not node.right:
-            pass
 
         # only left child
         if node.left and not node.right:
@@ -93,6 +95,10 @@ class BinaryTree:
         if node.left and node.right:
             replacement_node = node.right
             node.right.left = node.left
+
+        if is_root:
+            self.root = replacement_node
+            return
 
         if is_right_child:
             parent_node.right = replacement_node
@@ -119,7 +125,13 @@ class BinaryTree:
             self.__remove(node, parent_node)
             break
 
+
     def add(self, val):
+        if isinstance(val, list):
+            for v in val:
+                self.add(v)
+            return
+
         new_node = TreeNode(val)
 
         if not self.root:
@@ -146,20 +158,25 @@ class BinaryTree:
 
 
 bt = BinaryTree()
-bt.add(4)
-bt.add(3)
-bt.add(1)
-bt.add(2)
+bt.add([4,3,1,2])
+print(bt.root)
 
-print("In Order:")
+print("\nIn Order:")
 bt.in_order_traversal(bt.root)
-print("")
-print("Pre Order:")
+print("\nPre Order:")
 bt.pre_order_traversal(bt.root)
-print("")
-print("Post Order:")
+print("\nPost Order:")
 bt.post_order_traversal(bt.root)
-bt.remove(2)
+
 print("")
-bt.in_order_traversal(bt.root)
+bt.remove(2)
+print(bt.root)
+
+bt = BinaryTree()
+bt.add([4,2,6,1,3,5,7])
+print(bt.pre_order_traversal(bt.root))
+print(bt.root)
+bt.remove(6)
+print(bt.root)
+
 # bt.invert()
