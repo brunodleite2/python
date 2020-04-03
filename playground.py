@@ -59,3 +59,5 @@ reassign(list)
 print(list)
 append(list)
 print(list)
+
+print(min([]))
